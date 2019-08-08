@@ -1,31 +1,40 @@
 #include "graph.hpp"
+#include "shortest_path.hpp"
+#include "connected_components.hpp"
 
 int main()
 {
-    graph<char, double> g;
-    g.add_edge('A', 'B', 3);
-    g.add_edge('A', 'H', 4);
-    g.add_edge('H', 'F', 9);
-    g.add_edge('H', 'C', 8);
-    g.add_edge('B', 'C', 1);
-    g.add_edge('B', 'D', 5);
-    g.add_edge('D', 'E', 3);
-    g.add_edge('E', 'F', 1);
+    graph<char, double> g1;
+    g1.add_edge('A', 'B', 3);
+    g1.add_edge('A', 'H', 4);
+    g1.add_edge('H', 'F', 9);
+    g1.add_edge('H', 'C', 8);
+    g1.add_edge('B', 'C', 1);
+    g1.add_edge('B', 'D', 5);
+    g1.add_edge('D', 'E', 3);
+    g1.add_edge('E', 'F', 1);
 
-    char source = 'A';
-    std::map<char, double> min_distance;
-    std::map<char, char> previous;
+    auto cnt1 = connected_components(g1); 
+    std::cout << "number of connected components: " << cnt1 << std::endl;
 
-    shortest_path(g, source, min_distance, previous);
+    graph<int, double> g2;
 
-    for(auto const & kvp : min_distance)
-    {
-        std::cout << source << " -> " 
-            << kvp.first << " : " 
-            << kvp.second << '\t';
+    // First connected component
+    g2.add_edge(1, 5, 4);
+    g2.add_edge(1, 3, 2);
+    g2.add_edge(5, 3, 2);
+    g2.add_edge(5, 7, 2);
+    g2.add_edge(5, 9, 4);
 
-        print_path(build_path(previous, kvp.first));
-    }
+    // Second connected component
+    g2.add_edge(2, 4, 2);
+    
+    // Third connected component
+    g2.add_edge(8, 6, 2);
+    g2.add_edge(6, 10, 4);
+
+    auto cnt2 = connected_components(g2); 
+    std::cout << "number of connected components: " << cnt2 << std::endl;
 
     return 0;
 }

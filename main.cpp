@@ -1,3 +1,4 @@
+#include "union_find.hpp"
 #include "graph.hpp"
 #include "shortest_path.hpp"
 #include "connected_components.hpp"
@@ -33,8 +34,17 @@ int main()
     g2.add_edge(8, 6, 2);
     g2.add_edge(6, 10, 4);
 
-    auto cnt2 = connected_components(g2); 
-    std::cout << "number of connected components: " << cnt2 << std::endl;
+    g2.spanning_tree();
+
+    // auto cnt2 = connected_components(g2); 
+    // std::cout << "number of connected components: " << cnt2 << std::endl;
+
+    // const auto& deg_seq = g2.degree_sequence();
+    // for(const auto& [vertex, degree] : deg_seq)
+    // {
+    //     std::cout << "\"" << vertex << "\": " << degree << ", "; 
+    // }
+    // std::cout << std::endl;
 
     return 0;
 }

@@ -1,0 +1,23 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_OUTPUT_MODE	u-ctags	/u-ctags or e-ctags/
+!_TAG_PROGRAM_AUTHOR	Universal Ctags Team	//
+!_TAG_PROGRAM_NAME	Universal Ctags	/Derived from Exuberant Ctags/
+!_TAG_PROGRAM_URL	https://ctags.io/	/official site/
+!_TAG_PROGRAM_VERSION	0.0.0	/3fdf28bc/
+Infinity	graph.hpp	/^        constexpr static Weight Infinity = $/;"	m	class:graph	typeref:typename:Weight
+add_edge	graph.hpp	/^        void add_edge(Vertex const source, Vertex const target,$/;"	f	class:graph	typeref:typename:void
+adj_list	graph.hpp	/^        std::map<vertex_type, neighbor_list_type> adj_list;$/;"	m	class:graph	typeref:typename:std::map<vertex_type,neighbor_list_type>
+build_path	graph.hpp	/^std::vector<Vertex> build_path($/;"	f	typeref:typename:std::vector<Vertex>
+build_path	graph.hpp	/^void build_path($/;"	f	typeref:typename:void
+graph	graph.hpp	/^class graph$/;"	c
+main	main.cpp	/^int main()$/;"	f	typeref:typename:int
+neighbor_list_type	graph.hpp	/^        typedef std::vector<neighbor_type> neighbor_list_type;$/;"	t	class:graph	typeref:typename:std::vector<neighbor_type>
+neighbor_type	graph.hpp	/^        typedef std::pair<Vertex, Weight> neighbor_type;$/;"	t	class:graph	typeref:typename:std::pair<Vertex,Weight>
+neighbors	graph.hpp	/^        neighbor_list_type const & neighbors(Vertex const & v) const$/;"	f	class:graph	typeref:typename:neighbor_list_type const &
+print_path	graph.hpp	/^void print_path(std::vector<Vertex> const & path)$/;"	f	typeref:typename:void
+shortest_path	graph.hpp	/^void shortest_path($/;"	f	typeref:typename:void
+verteces	graph.hpp	/^        std::vector<Vertex> verteces() const$/;"	f	class:graph	typeref:typename:std::vector<Vertex>
+vertex_count	graph.hpp	/^        std::size_t vertex_count() const { return adj_list.size(); }$/;"	f	class:graph	typeref:typename:std::size_t
+vertex_type	graph.hpp	/^        typedef Vertex vertex_type;$/;"	t	class:graph	typeref:typename:Vertex
+weight_type	graph.hpp	/^        typedef Weight weight_type;$/;"	t	class:graph	typeref:typename:Weight

@@ -8,14 +8,17 @@
 #include <algorithm>
 #include <iostream>
 
+#include "union_find.hpp"
+
 template <typename Vertex = int, typename Weight = double>
 class graph
 {
     public:
-        typedef Vertex vertex_type;
-        typedef Weight weight_type;
-        typedef std::pair<Vertex, Weight> neighbor_type;
-        typedef std::vector<neighbor_type> neighbor_list_type;
+        using vertex_type = Vertex;
+        using weight_type = Weight;
+        using neighbor_type = std::pair<Vertex, Weight>;
+        using neighbor_list_type = std::vector<neighbor_type>;
+        using degree_type = std::size_t;
 
     public:
         void add_edge(Vertex const source, Vertex const target,
@@ -23,6 +26,9 @@ class graph
         {
             adj_list[source].push_back(std::make_pair(target, weight));
             adj_list[target].push_back(std::make_pair(source, weight));
+
+            degrees[source]++;
+            degrees[target]++;
         }
 
         std::size_t vertex_count() const { return adj_list.size(); }
@@ -36,6 +42,47 @@ class graph
             }
 
             return keys;
+        }
+
+        std::vector<std::pair<vertex_type, degree_type>> degree_sequence() const
+        {
+            std::vector<std::pair<vertex_type, degree_type>> degree_seq;
+            for(const auto [vertex, degree] : degrees)
+            {
+                degree_seq.push_back({vertex, degree});
+            }
+
+            std::sort(std::begin(degree_seq), std::end(degree_seq), [](const auto& lhs_vert_deg, const auto& rhs_vert_deg) {
+                    return lhs_vert_deg.first < rhs_vert_deg.second; });
+
+            return degree_seq;
+        }
+
+        graph<Vertex, Weight> spanning_tree() const
+        {
+            using sorted_edge_type = std::pair<Weight, std::pair<Vertex, Vertex>>;
+            struct cmp_sorted_edge_type
+            {
+                bool operator()(const sorted_edge_type& lhs, const sorted_edge_type& rhs)
+                {
+                    return lhs.first < rhs.first;
+                }
+            };
+
+            const auto& vertices = verteces();
+            union_find<Vertex> unfnd(vertices);
+
+            std::set<sorted_edge_type, cmp_sorted_edge_type> sorted_edges;
+            
+            for(const auto& vertex : adj_list)
+            {
+                for(const auto& nigga : vertex.second)
+                {
+                    sorted_edges.emplace(std::make_pair(nigga.second, std::make_pair(vertex.first, nigga.first)));
+                }
+            }
+
+            return graph<Vertex, Weight>{};
         }
 
         neighbor_list_type const & neighbors(Vertex const & v) const
@@ -54,6 +101,7 @@ class graph
 
     private:
         std::map<vertex_type, neighbor_list_type> adj_list;
+        std::map<vertex_type, degree_type> degrees;
 };
 
 //template <typename Vertex, typename Weight>
